@@ -52,35 +52,17 @@ func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
     return []
 }
 
+// Input 1
 //let nums = [2,7,11,15]
 //let target = 9
-//twoSum(nums, target)
 
-//let nums1 = [3,2,4]
-//let target1 = 6
-//twoSum(nums1, target1)
+// Input 2
+//let nums = [3,2,4]
+//let target = 6
 
-let nums2 = [3,3, 4, 2]
-let target2 = 6
-twoSum(nums2, target2)
+// Input 3
+let nums = [3,3, 4, 2]
+let target = 6
 
-
-
-/*
- 
- class Solution {
-     func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
-          var indexMap = [Int: Int]()
-     
-         for (index, num) in nums.enumerated() {
-             let complement = target - num
-             if let complementIndex = indexMap[complement] {
-                 return [complementIndex, index]
-             }
-             indexMap[num] = index
-         }
-     
-         return []
-     }
- }
- */
+// Function Call
+twoSum(nums, target)
