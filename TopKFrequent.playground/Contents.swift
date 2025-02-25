@@ -24,7 +24,6 @@ import UIKit
 
 func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
     
-    //MARK: Method 1 - Brute Force Approch
     guard !nums.isEmpty else {
         print("Array is empty")
         return []
@@ -35,27 +34,49 @@ func topKFrequent(_ nums: [Int], _ k: Int) -> [Int] {
         return []
     }
     
+    //MARK: Method 2 - Brute Force Approch
+//    var dict : [Int : Int] = [:]
+//    for no in nums {
+//        dict[no, default: 0] += 1
+//    }
+//    
+//    let sortedDict = dict.sorted { $0.value > $1.value }
+//    
+//    var output: [Int] = []
+//    for i in 0..<k {
+//        output.append(sortedDict[i].key)
+//    }
+//    
+//    return output
     
-    var dict : [Int : Int] = [:]
-    for no in nums {
-        dict[no, default: 0] += 1
+    
+    //MARK: Method 1 - Bucket Sort
+    var dict: [Int: Int] = [:]
+    for num in nums {
+        dict[num, default: 0] += 1
     }
     
-    let sortedDict = dict.sorted { $0.value > $1.value }
+    var bucket: [[Int]] = Array(repeating: [Int](), count: nums.count + 1)
+    for (key, value) in dict {
+        bucket[value].append(key)
+    }
     
     var output: [Int] = []
-    for i in 0..<k {
-        output.append(sortedDict[i].key)
+    for num in bucket.reversed() {
+        output += num
+        
+        if k == output.count {
+            return output
+        }
     }
-    
-    return output
+    return []
 }
 
-//let nums = [1,2,2,3,3,3], k = 2
+let nums = [1,2,2,3,3,3], k = 2
 
 //let nums = [7, 7], k = 1
 
-let nums = [1, 2], k = 2
+//let nums = [1, 2], k = 2
 
 let outPut = topKFrequent(nums, k)
 print("Final OutputL \(outPut)")
