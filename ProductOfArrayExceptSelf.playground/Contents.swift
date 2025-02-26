@@ -26,7 +26,7 @@ func productExceptSelf(_ nums: [Int]) -> [Int] {
 
     guard !nums.isEmpty else { return [] }
     
-    var output: [Int] = []
+    var output: [Int] = Array(repeating: 1, count: nums.count)
     
     /**** Brute Force - Solution 1 **/
 //    for i in 0..<nums.count {
@@ -43,23 +43,39 @@ func productExceptSelf(_ nums: [Int]) -> [Int] {
 //    }
     
     /**** Brrute Force - Solution 2 **/
-    for i in 0..<nums.count {
-        
-        var product = 1
-        for j in 0..<nums.count {
-            
-            if i != j {
-                product *= nums[j]
-            }
-        }
-        
-        output.append(product)
+//    for i in 0..<nums.count {
+//        
+//        var product = 1
+//        for j in 0..<nums.count {
+//            
+//            if i != j {
+//                product *= nums[j]
+//            }
+//        }
+//        
+//        output.append(product)
+//    }
+    
+    var prefix : [Int] = Array(repeating: 1, count: nums.count)
+    var suffix: [Int] = Array(repeating: 1, count: nums.count)
+    
+    for i in 1..<nums.count {
+        prefix[i] = prefix[i-1] * nums[i-1]
     }
+    
+    for i in stride(from: (nums.count-2), through: 0, by: -1) {
+        suffix[i] = suffix[i+1] * nums[i+1]
+    }
+    
+    for i in 0..<nums.count {
+        output[i] = prefix[i] * suffix[i]
+    }
+    
     return output
 }
 
-//let nums = [1,2,4,6]
+let nums = [2,4,6,2,1]
 //let nums = [-1,0,1,2,3]
-let  nums = [-1,1,0,-3,3]
+//let  nums = [-1,1,0,-3,3]
 let output: [Int] = productExceptSelf(nums)
 print("Products of Array Except Self: \(output)")
